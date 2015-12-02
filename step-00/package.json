@@ -14,8 +14,7 @@
     "babel-preset-react": "6.1.18"
   },
   "scripts": {
-    "build": "webpack -p --colors",
-    "watch": "webpack --watch --colors -d",
-    "dev": "webpack-dev-server --colors --content-base public"
+    "bundle": "webpack -p --colors --progress",
+    "start": "webpack-dev-server -d --colors --inline --content-base public"
   }
 }

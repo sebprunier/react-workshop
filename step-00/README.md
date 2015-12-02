@@ -133,6 +133,7 @@ var webpack = require('webpack');
 module.exports = {
     output: {
         path: './public/js/',
+        publicPath: '/js/',
         filename: 'bundle.js'
     },
     entry: {
@@ -162,16 +163,15 @@ La configuration de Webpack est simple :
 * Le fichier `bundle.js` est généré dans le répertoire `public/js`
 * Le build exécute le lanceur `babel` avec les plugins `react` et `es2015`
 
-Vous pouvez ajouter les commandes Webpack sous forme de scripts dans le fichier `package.json` : 
+Vous pouvez ajouter les commandes Webpack sous forme de scripts dans le fichier `package.json`. Par exemple : 
 
 ```json
 "scripts": {
-    "build": "webpack -p --colors",
-    "watch": "webpack --watch --colors -d",
+    "bundle": "webpack -p --colors --progress"
 }
 ```
 
-Ainsi, la commande `npm run build` construit le `bundle.js` et la commande `npm run watch` lance le build lorsque des modifications du code ont lieu.
+Ainsi, la commande `npm run bundle` permet de construire le fichier `bundle.js`
 
 
 Enfin, pensez à référencer le script `bundle.js` dans le fichier `index.html` : 
@@ -182,7 +182,7 @@ Enfin, pensez à référencer le script `bundle.js` dans le fichier `index.html`
 
 <div id="main"></div>
 
-<script src="js/bundle.js"></script>
+<script src="/js/bundle.js"></script>
 </body>
 ```
 
@@ -194,7 +194,6 @@ Ajoutez la dépendance à `webpack-dev-server` dans le fichier `package.json` :
 
 ```json
 "devDependencies": {
-    ...
     "webpack-dev-server": "1.14.0"
 }
 ```
@@ -203,12 +202,13 @@ Ajoutez un nouveau script permettant de lancer le serveur Webpack :
 
 ```json
 "scripts": {
-    ...
-    "dev": "webpack-dev-server --colors --content-base public"
+    "start": "webpack-dev-server -d --colors --inline --content-base public"
 }
 ```
 
-Lancez enfin la commande `npm run dev` et ouvrez la page `http://localhost:8080` !
+Lancez enfin la commande `npm start` et ouvrez la page `http://localhost:8080`.
+
+Modifiez le code du composant `Todo` et observez les modifications en live dans votre navigateur !
 
 
 ## Pour aller plus loin ...
