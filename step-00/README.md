@@ -292,12 +292,20 @@ Créez ensuite le fichier `.eslintrc` qui permet de configurer ESLint :
 * La partie `ecmaFeatures` permet de définir les options du langage Javascript supportées lors de l'analyse. Ici nous activons la syntaxe JSX.
 * La partie `rules` définit les règles à appliquer lors de l'analyse du code. Pour plus de détails sur les règles disponibles : [https://www.npmjs.com/package/eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
 
-Il est possible d'exclure certains fichiers ou dossier de l'analyse, grâce au fichier `.eslintignore`. Exemple :
+Il est possible d'exclure certains fichiers ou dossiers de l'analyse, grâce au fichier `.eslintignore`. Exemple :
 
 ```
 node_modules
 webpack.config.js
 public
+```
+
+Enfin, ajoutez un script dans le fichier `package.json` permettant d'exécuter ESLint grâce à la commande `npm run lint` :
+
+```json
+"scripts": {
+  "lint": "eslint src"
+}
 ```
 
 ## TODO ...
