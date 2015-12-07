@@ -12,6 +12,18 @@ var Todo = React.createClass({
             </div>
         );
     }
+
+    // Version utilisant directement la fonction createElement() de React
+    /*
+    render: function () {
+        return React.createElement(
+            'div',
+            {className: 'todo'},
+            this.props.text
+        );
+    }
+    */
+
 });
 
 module.exports = Todo;

@@ -77,6 +77,18 @@ Afin de pouvoir ajouter du style sur ce componsant, on définit également une c
 *Remarque : n'oubliez pas que JSX n'est que du "sucre syntaxique" transformé en javascript, ce n'est pas du HTML !
 Ce qui explique l'utilisation de `className` et non `class` qui est un mot clé réservé en javascript*
 
+Vous pouvez également utiliser directement la fonction `createElement` de l'API `React` :
+
+```javascript
+render: function () {
+    return React.createElement(
+        'div',
+        {className: 'todo'},
+        this.props.text
+    );
+}
+```
+
 ### index.html
 
 Créez une page HTML basique et ajoutez-y une `<div>` (possédant l'identifiant `main`) dans laquelle nous effectuerons le rendu de notre composant.  
@@ -120,6 +132,18 @@ var Todo = require('./components/todo');
 
 ReactDOM.render(
     <Todo text="Ceci est une tâche à réaliser."/>,
+    document.getElementById('main')
+);
+```
+
+Vous pouvez également utiliser directement la fonction `createElement` de l'API `React` :
+
+```javascript
+ReactDOM.render(
+    React.createElement(
+        Todo,
+        {text:'Ceci est une tâche à réaliser.'}
+    ),
     document.getElementById('main')
 );
 ```
@@ -232,8 +256,6 @@ Modifiez le code du composant `Todo` et observez les modifications en live dans 
 
 TODO :
 
-* Sans JSX
-* Code en ES2015
-* Style CSS inline
 * JSLint
 * Tests
+* Commenter le code
