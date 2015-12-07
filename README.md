@@ -6,7 +6,10 @@ Ce workshop permet la prise en main de la librairie [React](https://facebook.git
 
 ## Etapes du workshop
 
-* [Etape 0](./step-00) : installation et premier composant
+* [Etape 00](./step-00) : installation et premier composant.
+* [Etape 10](./step-10) : application complète avec formulaire de création, filtres et statistiques.
+* [Etape 20](./step-20) : Single Page Application avec react-router.
+* [Etape 30](./step-30) : Réactivité avec Flux.
 
 ## Liens utiles
 
