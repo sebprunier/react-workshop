@@ -203,6 +203,7 @@ La configuration de Webpack est simple :
 * Le point d'entrée est le fichier `src/app.js`
 * Le fichier `bundle.js` est généré dans le répertoire `public/js`
 * Le build exécute le lanceur `babel` avec les plugins `react` et `es2015`
+    * *Remarque : les plugins babel peuvent également être définis dans le fichier de configuration `.babelrc`*
 
 Vous pouvez ajouter les commandes Webpack sous forme de scripts dans le fichier `package.json`. Par exemple :
 
@@ -238,7 +239,6 @@ Ajoutez la dépendance à `webpack-dev-server` dans le fichier `package.json` :
     "webpack-dev-server": "1.14.0"
 }
 ```
-
 Ajoutez un nouveau script permettant de lancer le serveur Webpack :
 
 ```json
@@ -251,6 +251,64 @@ Lancez enfin la commande `npm start` et ouvrez la page `http://localhost:8080`.
 
 Modifiez le code du composant `Todo` et observez les modifications en live dans votre navigateur !
 
+## Tests
+
+Les tests unitaires sont primordiaux dans le développement. Ils ne doivent en aucun cas être négligés, c'est pourquoi nous les introduisons dès l'étape 0 du workshop.
+
+L'objectif est de mettre en place le test unitaire du composant `Todo`. Pour cela, nous allons nous appuyer sur les librairies suivantes :
+
+* [react-addons-test-utils](https://facebook.github.io/react/docs/test-utils.html) : addon React facilitant les tests de composants React.
+* [jsdom](https://github.com/tmpvar/jsdom) : librairie implémentant les standards DOM et HTML, qui permettra de créer un document HTML dans lequel faire le rendu des componsants à tester.
+* [Chai](http://chaijs.com/) : librairie d'assertions, orientée BDD/TDD.
+* [Mocha](http://mochajs.org/) : framework Javascript de tests unitaires.
+* [babel-register](https://babeljs.io/docs/setup/#mocha) : permet d'utiliser Babel lors de l'exécution des tests avec Mocha.
+
+Commencez par ajouter ces librairies au fichier package.json :
+
+```json
+"devDependencies": {
+    "babel-register": "6.3.13",
+    "jsdom": "7.2.0",
+    "mocha": "2.3.4",
+    "chai": "3.4.1",
+    "react-addons-test-utils": "0.14.3"
+}
+```
+Ecrivez ensuite le test du composant `Todo`, en utilisant :
+
+* la syntaxe Mocha pour décrire le test,
+* ReactTestUtils pour effectuer le rendu et parcourir l'arbre DOM du composant `Todo`,
+* Chai pour vérifier le texte affiché.
+
+```javascript
+var React = require('react');
+var ReactTestUtils = require('react-addons-test-utils');
+var chai = require('chai');
+var expect = chai.expect;
+
+var Todo = require('../../src/components/todo');
+
+describe('Todo', function() {
+  it('affiche le texte de la tâche', function() {
+    var todo = ReactTestUtils.renderIntoDocument(<Todo text="Un Todo de test..."/>);
+    var div = ReactTestUtils.findRenderedDOMComponentWithTag(todo, 'div');
+    expect(div.textContent).to.be.equal('Un Todo de test...');
+  });
+});
+```
+
+Regardez également les fichiers suivants :
+
+* `bootstrap.js` : fichier permettant de créer le contexte nécessaire au fonctionnement de ReactTestUtils.
+* `index.js` : point d'entrée permettant d'exécuter l'ensemble des tests unitaires.
+
+Ajoutez un nouveau script dans le fichier `package.json` permettant de lancer les tests à l'aide de la commande `npm test` :
+
+```json
+"scripts": {
+    "test": "mocha --compilers js:babel-register tests/index.js"
+}
+```
 
 ## ESLint
 
@@ -271,6 +329,7 @@ Créez ensuite le fichier `.eslintrc` qui permet de configurer ESLint :
 
 ```json
 {
+  "extends": "eslint:recommended",
   "env": {
     "browser": true,
     "node": true
@@ -287,10 +346,11 @@ Créez ensuite le fichier `.eslintrc` qui permet de configurer ESLint :
 }
 ```
 
+* L'attribut `extends` permet d'hériter d'une configuration existante. `eslint:recommended` contient les règles recommandée par ESLint.
 * La partie `env` permet de définir quelles variables globales sont potentiellement utilisées dans le code. Ici nous ajoutons celles du navigateur et celle de node.
 * La partie `plugins` permet d'ajouter des plugins ESLint. Ici nous ajoutons le plugin React.
 * La partie `ecmaFeatures` permet de définir les options du langage Javascript supportées lors de l'analyse. Ici nous activons la syntaxe JSX.
-* La partie `rules` définit les règles à appliquer lors de l'analyse du code. Pour plus de détails sur les règles disponibles : [https://www.npmjs.com/package/eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
+* La partie `rules` permet de définir les règles à appliquer lors de l'analyse du code. Pour plus de détails sur les règles disponibles : [https://www.npmjs.com/package/eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
 
 Il est possible d'exclure certains fichiers ou dossiers de l'analyse, grâce au fichier `.eslintignore`. Exemple :
 
@@ -304,11 +364,6 @@ Enfin, ajoutez un script dans le fichier `package.json` permettant d'exécuter E
 
 ```json
 "scripts": {
-  "lint": "eslint src"
+  "lint": "eslint src tests"
 }
 ```
-
-## TODO ...
-
-* Tests
-* Commenter le code
