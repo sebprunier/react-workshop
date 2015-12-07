@@ -252,10 +252,55 @@ Lancez enfin la commande `npm start` et ouvrez la page `http://localhost:8080`.
 Modifiez le code du composant `Todo` et observez les modifications en live dans votre navigateur !
 
 
-## Pour aller plus loin ...
+## ESLint
 
-TODO :
+[ESLint](http://eslint.org/) est un outil qui permet d'analyser votre code Javascript selon un certains nombre de règles.
 
-* JSLint
+Dans notre cas, nous allons l'utiliser avec le plugin [`eslint-plugin-react`](https://www.npmjs.com/package/eslint-plugin-react) qui propose des règles spécifiques au développement de composants React.
+
+Pour commencer, ajoutez les dépendances nécessaires dans le fichier `package.json` :
+
+```json
+"devDependencies": {
+    "eslint": "1.10.3",
+    "eslint-plugin-react": "3.11.3"
+}
+```
+
+Créez ensuite le fichier `.eslintrc` qui permet de configurer ESLint :
+
+```json
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "rules": {
+    "react/prop-types": 1,
+  }
+}
+```
+
+* La partie `env` permet de définir quelles variables globales sont potentiellement utilisées dans le code. Ici nous ajoutons celles du navigateur et celle de node.
+* La partie `plugins` permet d'ajouter des plugins ESLint. Ici nous ajoutons le plugin React.
+* La partie `ecmaFeatures` permet de définir les options du langage Javascript supportées lors de l'analyse. Ici nous activons la syntaxe JSX.
+* La partie `rules` définit les règles à appliquer lors de l'analyse du code. Pour plus de détails sur les règles disponibles : [https://www.npmjs.com/package/eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
+
+Il est possible d'exclure certains fichiers ou dossier de l'analyse, grâce au fichier `.eslintignore`. Exemple :
+
+```
+node_modules
+webpack.config.js
+public
+```
+
+## TODO ...
+
 * Tests
 * Commenter le code
