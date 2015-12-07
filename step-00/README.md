@@ -6,7 +6,7 @@
 
 Téléchargez et installez la version de Node.js correspondant à votre système d'exploitation, en suivant les indications disponibles sur le site officiel : [https://nodejs.org/en/download/](https://nodejs.org/en/download/)  
 
-Vérifiez l'installation en lançant les commandes suivantes dans un terminal : 
+Vérifiez l'installation en lançant les commandes suivantes dans un terminal :
 
 ```
 $ node -v
@@ -18,15 +18,15 @@ $ npm -v
 
 ### React Developer Tools
 
-Afin de disposer d'outils spécifiques à React dans votre navigateur web, installez **React Developer Tools** : 
+Afin de disposer d'outils spécifiques à React dans votre navigateur web, installez **React Developer Tools** :
 
 * [React Developer Tools pour Google Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
-* [React Developer Tools pour Mozilla Firefox](https://addons.mozilla.org/fr/firefox/addon/react-devtools/) 
+* [React Developer Tools pour Mozilla Firefox](https://addons.mozilla.org/fr/firefox/addon/react-devtools/)
 
 
 ## Installation
 
-Créez un fichier `package.json`, en déclarant les dépendances React : 
+Créez un fichier `package.json`, en déclarant les dépendances React :
 
 ```json
 {
@@ -53,10 +53,14 @@ Dans le répertoire `src/components`, créez le fichier `todo.js` qui contient l
 var React = require('react');
 
 var Todo = React.createClass({
+    propTypes: {
+        text: React.PropTypes.string.isRequired
+    },
+
     render: function () {
         return (
             <div className="todo">
-                Ceci est une tâche à réaliser.
+                {this.props.text}
             </div>
         );
     }
@@ -65,11 +69,13 @@ var Todo = React.createClass({
 module.exports = Todo;
 ```
 
-Ce premier composant est volontairement très simple (type "hello world"), il retourne simplement un texte statique dans un élément HTML `<div>`.
+Ce premier composant est volontairement très simple (type "hello world"), il retourne simplement un texte dans un élément HTML `<div>`.
+Ce texte est passé au composant grâce à une propriété `text`. Cette propriété est définie comme étant de type `string` et obligatoire (partie `propTypes` du composant).
+
 Afin de pouvoir ajouter du style sur ce componsant, on définit également une classe CSS via l'attribut `className`.
 
 *Remarque : n'oubliez pas que JSX n'est que du "sucre syntaxique" transformé en javascript, ce n'est pas du HTML !
-Ce qui explique l'utilisation de `className` et non `class` qui est un mot clé réservé en javascript* 
+Ce qui explique l'utilisation de `className` et non `class` qui est un mot clé réservé en javascript*
 
 ### index.html
 
@@ -81,6 +87,7 @@ Créez une page HTML basique et ajoutez-y une `<div>` (possédant l'identifiant 
 <head>
     <meta charset="UTF-8"/>
     <title>React Workshop - Etape 0</title>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <h1>Etape 0 - Installation et premier composant</h1>
@@ -90,10 +97,20 @@ Créez une page HTML basique et ajoutez-y une `<div>` (possédant l'identifiant 
 </body>
 </html>
 ```
+Cette page référence la feuille de style `css/index.css`. Pensez à la créer afin de donner du style au componsant `Todo`. Par exemple :
+
+```css
+.todo {
+    border: 1px solid darkblue;
+    background: lightblue;
+    color: darkblue;
+    padding: 5px;
+}
+```
 
 ### app.js
 
-A la racine du répertoire `src`, créez le fichier `app.js` qui contient le code nécessaire au rendu du componsant `Todo` dans la `<div>` créée précédemment : 
+A la racine du répertoire `src`, créez le fichier `app.js` qui contient le code nécessaire au rendu du componsant `Todo` dans la `<div>` créée précédemment :
 
 ```javascript
 var React = require('react');
@@ -102,7 +119,7 @@ var ReactDOM = require('react-dom');
 var Todo = require('./components/todo');
 
 ReactDOM.render(
-    <Todo />,
+    <Todo text="Ceci est une tâche à réaliser."/>,
     document.getElementById('main')
 );
 ```
@@ -114,7 +131,7 @@ Nous utilisons l'outil [Webpack](https://webpack.github.io/) afin de construire 
 En complément de Webpack, nous utilisons [Babel](https://babeljs.io/), un compilateur Javascript qui permet d'utiliser les dernières nouveautés du langage.
 Dans notre cas, nous utilisons les plugins `react` et `es2015`.
 
-Dans le fichier `package.json`, ajoutez les dépendances de développement nécessaires au build Webpack : 
+Dans le fichier `package.json`, ajoutez les dépendances de développement nécessaires au build Webpack :
 
 ```json
 "devDependencies": {
@@ -125,7 +142,7 @@ Dans le fichier `package.json`, ajoutez les dépendances de développement néce
 }
 ```
 
-Créez le fichier `webpack.config.js` permettant de configurer Webpack et Babel : 
+Créez le fichier `webpack.config.js` permettant de configurer Webpack et Babel :
 
 ```javascript
 var webpack = require('webpack');
@@ -157,13 +174,13 @@ module.exports = {
 };
 ```
 
-La configuration de Webpack est simple : 
+La configuration de Webpack est simple :
 
 * Le point d'entrée est le fichier `src/app.js`
 * Le fichier `bundle.js` est généré dans le répertoire `public/js`
 * Le build exécute le lanceur `babel` avec les plugins `react` et `es2015`
 
-Vous pouvez ajouter les commandes Webpack sous forme de scripts dans le fichier `package.json`. Par exemple : 
+Vous pouvez ajouter les commandes Webpack sous forme de scripts dans le fichier `package.json`. Par exemple :
 
 ```json
 "scripts": {
@@ -174,7 +191,7 @@ Vous pouvez ajouter les commandes Webpack sous forme de scripts dans le fichier 
 Ainsi, la commande `npm run bundle` permet de construire le fichier `bundle.js`
 
 
-Enfin, pensez à référencer le script `bundle.js` dans le fichier `index.html` : 
+Enfin, pensez à référencer le script `bundle.js` dans le fichier `index.html` :
 
 ```html
 <body>
@@ -190,7 +207,7 @@ Enfin, pensez à référencer le script `bundle.js` dans le fichier `index.html`
 
 Afin de rendre la page `index.html` dans un navigateur, nous utilisons [Webpack Dev Server](http://webpack.github.io/docs/webpack-dev-server.html).
 
-Ajoutez la dépendance à `webpack-dev-server` dans le fichier `package.json` : 
+Ajoutez la dépendance à `webpack-dev-server` dans le fichier `package.json` :
 
 ```json
 "devDependencies": {
@@ -198,7 +215,7 @@ Ajoutez la dépendance à `webpack-dev-server` dans le fichier `package.json` :
 }
 ```
 
-Ajoutez un nouveau script permettant de lancer le serveur Webpack : 
+Ajoutez un nouveau script permettant de lancer le serveur Webpack :
 
 ```json
 "scripts": {
@@ -213,8 +230,10 @@ Modifiez le code du composant `Todo` et observez les modifications en live dans 
 
 ## Pour aller plus loin ...
 
-TODO : 
+TODO :
 
 * Sans JSX
 * Code en ES2015
 * Style CSS inline
+* JSLint
+* Tests

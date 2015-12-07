@@ -1,10 +1,14 @@
 var React = require('react');
 
 var Todo = React.createClass({
+    propTypes: {
+        text: React.PropTypes.string.isRequired
+    },
+
     render: function () {
         return (
             <div className="todo">
-                Ceci est une tâche à réaliser.
+                {this.props.text}
             </div>
         );
     }
