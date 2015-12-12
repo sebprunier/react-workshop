@@ -4,6 +4,7 @@ var uuid = require('uuid');
 var TodoList = require('./todoList');
 var TodoForm = require('./todoForm');
 var TodoFilters = require('./todoFilters');
+var TodoStatsWidget = require('./todoStatsWidget');
 
 var fakeTodos = [
     {id: uuid.v4(), text: "Ceci est un todo", status: "NEW"},
@@ -51,6 +52,7 @@ var TodoDashboard = React.createClass({
                 <TodoFilters done={this.state.doneFilter} toggleDone={this.toggleDone} />
                 <TodoForm createTodo={this.createTodo}/>
                 <TodoList updateTodo={this.updateTodo} todos={this.filterTodos()}/>
+                <TodoStatsWidget todos={this.state.todos}/>
             </div>
         )
     }
