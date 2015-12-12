@@ -1,6 +1,8 @@
 var React = require('react');
 var uuid = require('uuid');
 
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 var Card = require('./card');
 var Checkbox = require('./checkbox')
 
@@ -108,7 +110,9 @@ var Todos = React.createClass({
     render: function () {
         return (
             <div>
-                {this.props.todos.map(todo => <Todo updateTodo={this.props.updateTodo} key={todo.id} todo={todo}/>)}
+                <ReactCSSTransitionGroup transitionName="todoList" transitionAppear={true} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                    {this.props.todos.map(todo => <Todo updateTodo={this.props.updateTodo} key={todo.id} todo={todo}/>)}
+                </ReactCSSTransitionGroup>
             </div>
         )
     }

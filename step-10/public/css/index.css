@@ -1,0 +1,26 @@
+.todoList-enter {
+  opacity: 0.01;
+}
+
+.todoList-enter.todoList-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.todoList-leave {
+  opacity: 1;
+}
+
+.todoList-leave.todoList-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.todoList-appear {
+  opacity: 0.01;
+}
+
+.todoList-appear.todoList-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
