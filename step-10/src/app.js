@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var TodoBox = require('./components/todo');
+var TodoDashboard = require('./components/todo/todoDashboard');
 
 ReactDOM.render(
-    <TodoBox />,
+    <TodoDashboard />,
     document.getElementById('main')
 );
