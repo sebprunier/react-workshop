@@ -1,0 +1,12 @@
+{
+  "name": "react-workshop-server",
+  "description": "React Workshop API",
+  "version": "1.0.0",
+  "dependencies": {
+    "restify": "4.0.3",
+    "uuid": "2.0.1"
+  },
+  "scripts": {
+    "start": "node src/server.js"
+  }
+}
