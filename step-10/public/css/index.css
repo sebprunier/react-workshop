@@ -1,3 +1,9 @@
+/* Grids */
+.box {
+    padding: 16px;
+}
+
+/* Animations */
 .todoList-enter {
   opacity: 0.01;
 }

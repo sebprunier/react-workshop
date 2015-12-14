@@ -15,7 +15,8 @@ var TodoForm = React.createClass({
         })
     },
 
-    createTodo: function () {
+    createTodo: function (e) {
+        e.preventDefault();
         this.props.createTodo({
             id: uuid.v4(),
             text: this.state.text,
@@ -27,8 +28,14 @@ var TodoForm = React.createClass({
     render: function () {
         return (
             <div>
-                <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
-                <button onClick={this.createTodo}>Ajouter</button>
+                <form className="pure-form pure-form-stacked" onSubmit={this.createTodo}>
+                    <fieldset>
+                        <label htmlFor="text">Texte</label>
+                        <input id="text" type="text" value={this.state.text} onChange={this.handleTextChange}/>
+
+                        <button type="submit" className="pure-button pure-button-primary">Ajouter</button>
+                    </fieldset>
+                </form>
             </div>
         )
     }

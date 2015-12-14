@@ -55,11 +55,27 @@ var TodoDashboard = React.createClass({
 
     render: function () {
         return (
-            <div>
-                <TodoFilters filters={this.state.filters} toggleStatus={this.toggleStatus} />
-                <TodoForm createTodo={this.createTodo}/>
-                <TodoList updateTodo={this.updateTodo} todos={this.filterTodos()}/>
-                <TodoStatsWidget todos={this.state.todos}/>
+            <div className="pure-g">
+                <div className="pure-u-1-4">
+                    <div className="box">
+                        <h2>Nouvelle tâche</h2>
+                        <TodoForm createTodo={this.createTodo}/>
+                    </div>
+                    <div className="box">
+                        <h2>Statistiques</h2>
+                        <TodoStatsWidget todos={this.state.todos}/>
+                    </div>
+                </div>
+                <div className="pure-u-3-4">
+                    <div className="box">
+                        <h2>Liste des tâches</h2>
+                        <TodoFilters filters={this.state.filters} toggleStatus={this.toggleStatus} />
+                    </div>
+                    <div className="box">
+                        <TodoList updateTodo={this.updateTodo} todos={this.filterTodos()}/>
+                    </div>
+                </div>
+
             </div>
         )
     }

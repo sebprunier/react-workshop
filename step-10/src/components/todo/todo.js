@@ -32,7 +32,7 @@ var Todo = React.createClass({
 
     renderAction: function () {
         if (this.props.todo.status !== "DONE") {
-            return <button onClick={this.nextStatus}>{StatusesActions[this.props.todo.status]}</button>
+            return <button type="button" className="pure-button pure-button-primary" onClick={this.nextStatus}>{StatusesActions[this.props.todo.status]}</button>
         }
     },
 
