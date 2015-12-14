@@ -17,14 +17,21 @@ var TodoDashboard = React.createClass({
     getInitialState: function () {
         return {
             todos: fakeTodos,
-            doneFilter: false
+            filters: {
+                statuses: {
+                    NEW: true,
+                    IN_PROGRESS: true,
+                    DONE: false
+                }
+            }
         }
     },
 
-    toggleDone: function() {
-        this.setState({
-            doneFilter: !this.state.doneFilter
-        })
+    toggleStatus: function(status) {
+        var filters = Object.assign({}, this.state.filters);
+        filters.statuses[status] = !this.state.filters.statuses[status];
+        var change = {filters: filters};
+        this.setState(change);
     },
 
     createTodo: function (todo) {
@@ -43,13 +50,13 @@ var TodoDashboard = React.createClass({
     },
 
     filterTodos: function() {
-        return this.state.todos.filter(todo => todo.status !== "DONE" || (this.state.doneFilter && todo.status === "DONE"))
+        return this.state.todos.filter(todo => this.state.filters.statuses[todo.status]);
     },
 
     render: function () {
         return (
             <div>
-                <TodoFilters done={this.state.doneFilter} toggleDone={this.toggleDone} />
+                <TodoFilters filters={this.state.filters} toggleStatus={this.toggleStatus} />
                 <TodoForm createTodo={this.createTodo}/>
                 <TodoList updateTodo={this.updateTodo} todos={this.filterTodos()}/>
                 <TodoStatsWidget todos={this.state.todos}/>
