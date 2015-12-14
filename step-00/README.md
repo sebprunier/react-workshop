@@ -2,6 +2,18 @@
 
 ## Pré-requis
 
+### Git
+
+Téléchargez et installez la version de Git correspondant à votre système d'exploitation, en suivant les indications disponibles sur le site officiel : [https://git-scm.com/downloads](https://git-scm.com/downloads)  
+
+Vérifiez l'installation en lançant la commande suivantes dans un terminal :
+
+```
+$ git --version
+git version 2.6.4
+```
+
+
 ### Node.js
 
 Téléchargez et installez la version de Node.js correspondant à votre système d'exploitation, en suivant les indications disponibles sur le site officiel : [https://nodejs.org/en/download/](https://nodejs.org/en/download/)  
@@ -15,6 +27,17 @@ v4.2.2
 $ npm -v
 2.14.7
 ```
+
+### Atom
+
+L'éditeur préconisé pour le workshop est [Atom](https://atom.io).
+
+Téléchargez et installez Atom, puis installez les packages suivants :
+
+* react
+* linter-eslint
+
+*Pour savoir comment gérer les packages d'Atom : [https://atom.io/docs/latest/using-atom-atom-packages](https://atom.io/docs/latest/using-atom-atom-packages)*
 
 ### React Developer Tools
 
