@@ -63,7 +63,7 @@ var TodoDashboard = React.createClass({
                     </div>
                     <div className="box">
                         <h2>Statistiques</h2>
-                        <TodoStatsWidget todos={this.state.todos}/>
+                        <TodoStatsWidget todos={this.filterTodos()}/>
                     </div>
                 </div>
                 <div className="pure-u-3-4">
