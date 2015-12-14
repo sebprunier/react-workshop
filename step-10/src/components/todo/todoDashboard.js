@@ -7,9 +7,9 @@ var TodoFilters = require('./todoFilters');
 var TodoStatsWidget = require('./todoStatsWidget');
 
 var fakeTodos = [
-    {id: uuid.v4(), text: "Ceci est un todo", status: "NEW"},
-    {id: uuid.v4(), text: "Ceci est un autre todo", status: "IN_PROGRESS"},
-    {id: uuid.v4(), text: "Un todo terminé", status: "DONE"}
+    {id: uuid.v4(), title: "Ceci est un todo", description: "La description du todo, **avec du gras**", status: "NEW"},
+    {id: uuid.v4(), title: "Ceci est un autre todo", description: "Tiens, encore un todo ... [avec un lien](http://www.google.fr)", status: "IN_PROGRESS"},
+    {id: uuid.v4(), title: "Un todo terminé", description: "Ca, c'est fait !!", status: "DONE"}
 ];
 
 var TodoDashboard = React.createClass({

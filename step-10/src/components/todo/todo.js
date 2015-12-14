@@ -1,4 +1,5 @@
 var React = require('react');
+var marked = require('marked');
 
 var Card = require('../card/card');
 
@@ -36,11 +37,16 @@ var Todo = React.createClass({
         }
     },
 
+    descriptionMarkup: function() {
+        var markup = marked(this.props.todo.description, {sanitize: true});
+        return {__html : markup};
+    },
+
     render: function () {
         return (
             <Card>
-                <p>{this.props.todo.text}</p>
-                <p>{StatusesLabels[this.props.todo.status]}</p>
+                <h3>[{StatusesLabels[this.props.todo.status]}] {this.props.todo.title}</h3>
+                <p dangerouslySetInnerHTML={this.descriptionMarkup()} />
                 {this.renderAction()}
             </Card>
         );

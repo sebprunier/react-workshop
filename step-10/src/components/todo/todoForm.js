@@ -5,13 +5,19 @@ var TodoForm = React.createClass({
 
     getInitialState: function () {
         return {
-            text: ""
+            title: "",
+            description: ""
         }
     },
 
-    handleTextChange: function (e) {
+    handleTitleChange: function (e) {
         this.setState({
-            text: e.target.value
+            title: e.target.value
+        })
+    },
+    handleDescriptionChange: function (e) {
+        this.setState({
+            description: e.target.value
         })
     },
 
@@ -19,7 +25,8 @@ var TodoForm = React.createClass({
         e.preventDefault();
         this.props.createTodo({
             id: uuid.v4(),
-            text: this.state.text,
+            title: this.state.title,
+            description: this.state.description,
             status: "NEW"
         });
         this.setState(this.getInitialState());
@@ -30,8 +37,11 @@ var TodoForm = React.createClass({
             <div>
                 <form className="pure-form pure-form-stacked" onSubmit={this.createTodo}>
                     <fieldset>
-                        <label htmlFor="text">Texte</label>
-                        <input id="text" type="text" value={this.state.text} onChange={this.handleTextChange}/>
+                        <label htmlFor="title">Titre</label>
+                        <input id="title" type="text" value={this.state.title} onChange={this.handleTitleChange}/>
+
+                        <label htmlFor="description">Texte</label>
+                        <textarea id="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
 
                         <button type="submit" className="pure-button pure-button-primary">Ajouter</button>
                     </fieldset>
