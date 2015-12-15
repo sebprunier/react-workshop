@@ -2,6 +2,9 @@ var React = require('react');
 var uuid = require('uuid');
 
 var TodoForm = React.createClass({
+    propTypes: {
+        createTodo: React.PropTypes.func
+    },
 
     getInitialState: function () {
         return {
@@ -26,7 +29,7 @@ var TodoForm = React.createClass({
         return this.refs.title.value && this.refs.title.value !== '';
     },
 
-    createTodo: function (e) {
+    handleCreateTodo: function (e) {
         e.preventDefault();
         if (!this.validateTitle()) {
             this.setState({titleValidationErrorMessage: "Le titre est obligatoire"});
@@ -50,24 +53,32 @@ var TodoForm = React.createClass({
     render: function () {
         return (
             <div>
-                <form className="pure-form pure-form-stacked" onSubmit={this.createTodo}>
+                <form
+                    className="pure-form pure-form-stacked"
+                    onSubmit={this.handleCreateTodo}>
                     <fieldset>
-                        <label htmlFor="title"><b>Titre *</b></label>
-                        <input id="title" ref="title"
+                        <label htmlFor="title"><b>{'Titre *'}</b></label>
+                        <input
+                            id="title"
+                            ref="title"
                             type="text"
                             value={this.state.title}
                             onChange={this.handleTitleChange}
-                            className={this.state.titleValidationErrorMessage ? "input-error" : ""}
-                        />
+                            className={this.state.titleValidationErrorMessage ? "input-error" : ""}/>
                         {this.renderTitleValidationErrorMessage()}
 
-                        <label htmlFor="description">Description</label>
-                        <textarea id="description"
+                        <label htmlFor="description">{'Description'}</label>
+                        <textarea
+                            id="description"
                             value={this.state.description}
                             onChange={this.handleDescriptionChange}
                         />
 
-                        <button type="submit" className="pure-button pure-button-primary">Ajouter</button>
+                        <button
+                            type="submit"
+                            className="pure-button pure-button-primary">
+                            {'Ajouter'}
+                        </button>
                     </fieldset>
                 </form>
             </div>

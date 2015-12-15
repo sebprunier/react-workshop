@@ -39,3 +39,9 @@
 .input-error {
     border-color: red !important;
 }
+
+/* Misc */
+.action-button {
+    float: right;
+    margin-top: 16px;
+}

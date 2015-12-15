@@ -8,6 +8,10 @@ var cardStyle = {
 };
 
 var Card = React.createClass({
+    propTypes: {
+        children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired
+    },
+
     render: function () {
         return (
             <div style={cardStyle}>

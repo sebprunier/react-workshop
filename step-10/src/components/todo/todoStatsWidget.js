@@ -4,6 +4,9 @@ var DoughnutChart = require("react-chartjs").Doughnut;
 var {StatusesLabels, StatusesColors} = require('../status/status');
 
 var TodoStatsWidget = React.createClass({
+    propTypes: {
+        todos: React.PropTypes.arrayOf(React.PropTypes.object)
+    },
 
     render: function() {
         var counters = {};
@@ -32,7 +35,13 @@ var TodoStatsWidget = React.createClass({
 
         return (
             <div>
-                <DoughnutChart data={chartData} options={chartOptions} width="250" height="250" redraw />
+                <DoughnutChart
+                    data={chartData}
+                    options={chartOptions}
+                    width="250"
+                    height="250"
+                    redraw
+                />
                 {renderLegend()}
             </div>
         );
