@@ -300,11 +300,11 @@ Commencez par ajouter ces librairies au fichier package.json :
 
 Ajoutez la configuration nécessaire à `babel-register` dans le fichier `.babelrc` :
 
-``̀
+```json
 {
   "presets": ["es2015", "react"]
 }
-``̀
+```
 
 Ecrivez ensuite le test du composant `Todo`, en utilisant :
 
