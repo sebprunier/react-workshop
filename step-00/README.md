@@ -297,6 +297,15 @@ Commencez par ajouter ces librairies au fichier package.json :
     "react-addons-test-utils": "0.14.3"
 }
 ```
+
+Ajoutez la configuration nécessaire à `babel-register` dans le fichier `.babelrc` :
+
+``̀
+{
+  "presets": ["es2015", "react"]
+}
+``̀
+
 Ecrivez ensuite le test du composant `Todo`, en utilisant :
 
 * la syntaxe Mocha pour décrire le test,
