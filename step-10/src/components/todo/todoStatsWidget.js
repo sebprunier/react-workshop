@@ -1,11 +1,7 @@
 var React = require('react');
 var DoughnutChart = require("react-chartjs").Doughnut;
 
-var colors = {
-    NEW: {color: "#F7464A", highlight: "#FF5A5E"},
-    IN_PROGRESS: {color: "#FDB45C", highlight: "#FFC870"},
-    DONE: {color: "#46BFBD", highlight: "#5AD3D1"}
-};
+var {StatusesLabels, StatusesColors} = require('../status/status');
 
 var TodoStatsWidget = React.createClass({
 
@@ -19,8 +15,8 @@ var TodoStatsWidget = React.createClass({
             return {
                 label: status,
                 value: counters[status],
-                color: colors[status].color,
-                highlight: colors[status].highlight
+                color: StatusesColors[status].color,
+                highlight: StatusesColors[status].highlightColor
             };
         });
 

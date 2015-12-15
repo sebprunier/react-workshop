@@ -2,19 +2,7 @@ var React = require('react');
 var marked = require('marked');
 
 var Card = require('../card/card');
-
-var Statuses = ["NEW", "IN_PROGRESS", "DONE"];
-
-var StatusesLabels = {
-    NEW: "Nouveau",
-    IN_PROGRESS: "En cours",
-    DONE: "Terminé"
-};
-
-var StatusesActions = {
-    NEW: "Commencer",
-    IN_PROGRESS: "Terminer"
-};
+var {Statuses, StatusesLabels, StatusesActions} = require('../status/status');
 
 var Todo = React.createClass({
     propTypes: {
