@@ -13,7 +13,7 @@ var TodoStatsWidget = React.createClass({
 
         var chartData = Object.keys(counters).map(function(status) {
             return {
-                label: status,
+                label: StatusesLabels[status],
                 value: counters[status],
                 color: StatusesColors[status].color,
                 highlight: StatusesColors[status].highlightColor
