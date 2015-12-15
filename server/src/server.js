@@ -8,9 +8,9 @@ var id3 = uuid.v4();
 var statuses = ["NEW", "IN_PROGRESS", "DONE"];
 
 var todosById = {};
-todosById[id1] = {id: id1, text: "Ceci est un todo", status: "NEW"};
-todosById[id2] = {id: id2, text: "Ceci est un autre todo", status: "IN_PROGRESS"};
-todosById[id3] = {id: id3, text: "Un todo terminé", status: "DONE"};
+todosById[id1] = {id: id1, title: "Ceci est un todo", description: "La description du todo, **avec du gras**", status: "NEW"};
+todosById[id2] = {id: id2, title: "Ceci est un autre todo", description: "Tiens, encore un todo ... [avec un lien](http://www.google.fr)", status: "IN_PROGRESS"};
+todosById[id3] = {id: id3, title: "Un todo terminé", description: "Ca, c'est fait !!", status: "DONE"};
 
 var server = restify.createServer({
     name: 'react-workshop-server',
@@ -20,6 +20,7 @@ var server = restify.createServer({
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
+server.use(restify.CORS());
 
 server.get('/todos', function (req, res, next) {
     if (req.query.status) {
@@ -54,14 +55,15 @@ server.post('/todos', function (req, res, next) {
     var newTodoId = uuid.v4();
     var newTodo = {
         id: newTodoId,
-        text: req.body.text,
+        title: req.body.title,
+        description: req.body.description,
         status: 'NEW'
     };
     todosById[newTodoId] = newTodo;
     res.send(201, newTodo);
 });
 
-server.put('/todos/:id/status', function(req, res, next) {
+server.post('/todos/:id/status', function(req, res, next) {
     var todo = todosById[req.params.id];
     if (!todo) {
         return next(new restify.NotFoundError("Not Found"));
