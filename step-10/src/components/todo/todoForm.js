@@ -6,6 +6,7 @@ var TodoForm = React.createClass({
     getInitialState: function () {
         return {
             title: "",
+            titleValidationErrorMessage: null,
             description: ""
         }
     },
@@ -21,15 +22,29 @@ var TodoForm = React.createClass({
         })
     },
 
+    validateTitle: function() {
+        return this.refs.title.value && this.refs.title.value !== '';
+    },
+
     createTodo: function (e) {
         e.preventDefault();
-        this.props.createTodo({
-            id: uuid.v4(),
-            title: this.state.title,
-            description: this.state.description,
-            status: "NEW"
-        });
-        this.setState(this.getInitialState());
+        if (!this.validateTitle()) {
+            this.setState({titleValidationErrorMessage: "Le titre est obligatoire"});
+        } else {
+            this.props.createTodo({
+                id: uuid.v4(),
+                title: this.state.title,
+                description: this.state.description,
+                status: "NEW"
+            });
+            this.setState(this.getInitialState());
+        }
+    },
+
+    renderTitleValidationErrorMessage: function() {
+        if (this.state.titleValidationErrorMessage) {
+            return <span className="error-message">{this.state.titleValidationErrorMessage}</span>
+        }
     },
 
     render: function () {
@@ -37,11 +52,20 @@ var TodoForm = React.createClass({
             <div>
                 <form className="pure-form pure-form-stacked" onSubmit={this.createTodo}>
                     <fieldset>
-                        <label htmlFor="title">Titre</label>
-                        <input id="title" type="text" value={this.state.title} onChange={this.handleTitleChange}/>
+                        <label htmlFor="title"><b>Titre *</b></label>
+                        <input id="title" ref="title"
+                            type="text"
+                            value={this.state.title}
+                            onChange={this.handleTitleChange}
+                            className={this.state.titleValidationErrorMessage ? "input-error" : ""}
+                        />
+                        {this.renderTitleValidationErrorMessage()}
 
-                        <label htmlFor="description">Texte</label>
-                        <textarea id="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
+                        <label htmlFor="description">Description</label>
+                        <textarea id="description"
+                            value={this.state.description}
+                            onChange={this.handleDescriptionChange}
+                        />
 
                         <button type="submit" className="pure-button pure-button-primary">Ajouter</button>
                     </fieldset>

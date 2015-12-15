@@ -30,3 +30,12 @@
   opacity: 1;
   transition: opacity .5s ease-in;
 }
+
+/* Errors */
+.error-message {
+    color: red;
+}
+
+.input-error {
+    border-color: red !important;
+}
