@@ -41,10 +41,6 @@
 }
 
 /* Misc */
-.invisible {
-    display: none;
-}
-
 .action-button {
     float: right;
     margin-top: 16px;
