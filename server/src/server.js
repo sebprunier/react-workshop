@@ -20,9 +20,22 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 server.get('/todos', function (req, res, next) {
-    res.send(Object.keys(todosById).map(function(id) {
-      return todosById[id];
-    }));
+    if (req.query.status) {
+        var statuses = [].concat(req.query.status);
+        res.send(
+            Object.keys(todosById)
+                .filter(function(id){
+                    return statuses.indexOf(todosById[id].status) > -1;
+                })
+                .map(function(id) {
+                    return todosById[id];
+                })
+        );
+    } else {
+        res.send(Object.keys(todosById).map(function(id) {
+          return todosById[id];
+        }));
+    }
     return next();
 });
 
